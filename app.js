@@ -1,3 +1,5 @@
 "use strict";
 
-name = "john";
+const name = "john";
+
+console.log(name);
