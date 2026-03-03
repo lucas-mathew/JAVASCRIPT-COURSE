@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="products.css">
+    <title>Products</title>
+</head>
+<body>
+
+<!-- Top bar -->
+  <fieldset class="create-product">
+    <legend id="New-product">Create New Product</legend>
+
+    
+      <div class="input-information">
+          <div>
+            <label for="" id="label">Product Name:</label>
+            <br>
+            <input type="text" id="product-name" class="input">
+          </div>
+          
+          <div>
+            <label for="" id="label">Product Stock:</label>
+            <br>
+            <input type="text" id="stock" class="input">
+          </div>
+
+          <div>
+            <label for="" id="label">Buy Price:</label>
+            <br>
+            <input type="text" id="buy-price" class="input">
+          </div>
+
+          <div>
+            <label for="" id="label">Sale Price:</label>
+            <br>
+            <input type="text" id="sale-price" class="input">
+          </div>
+      </div>
+
+    <button class="addButton">Create product</button>
+  </fieldset>
+
+
+<div class="top-bar">
+    <input type="search" id="search" placeholder="Search..">
+    <span id="total-product-label">
+        Total product:
+        <span id="total-products"></span>
+    </span>
+</div>
+
+
+<!-- Products information -->
+<div class="products-container">
+<!-- Header -->
+<div class="rows  header">
+    <div>Product</div>
+    <div>Stock</div>
+    <div>Buy price</div>
+    <div>sale Price</div>
+    <div>projected profit</div>
+    <div>capital</div>
+    <div id="action">Action</div>
+</div>
+
+<div class="js-products-container"></div>
+
+</div>
+
+  <div class="products-summary">
+     <h3>Products summary</h3>
+      <span>Total Profit:</span>
+      <span id="total-profit-displayer"></span>
+       <br>
+      <span>Total capital:</span>
+      <span id="total-capital-displayer"></span>
+    </div>
+  </div>
+ 
+    <script src="./products.js"></script>
+</body>
+</html>
