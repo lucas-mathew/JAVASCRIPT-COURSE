@@ -1,9 +1,9 @@
     "use strict"
     
     const products = [
-      {id:1,name:"Nails",stock:20, buyPrice:1000, salePrice:2000},
-      {id:2,name:"Roofs",stock:10, buyPrice:10000, salePrice:20000},
-      {id:2,name:"Cement",stock:10, buyPrice:10000, salePrice:20000}
+      {id:"01",name:"Nails",stock:1, buyPrice:1000, salePrice:2000},
+      {id:"02",name:"Roofs",stock:2, buyPrice:10000, salePrice:20000},
+      {id:"03",name:"Cement",stock:10, buyPrice:10000, salePrice:20000}
 
     ]
 
@@ -17,39 +17,44 @@
     const addButton = document.querySelector(".addButton")
     const totalProfitDisplayer = document.querySelector('#total-profit-displayer')
     const totalCapitalDisplayer =document.querySelector("#total-capital-displayer")
-
-
-  //display products on the page;
+    const totalStockDisplayer = document.querySelector('#total-stock-displayer')
+  
+    //display products on the page;
   function renderProducts(){
      let productsHTML = '';
      let totalProfit = 0;
      let totalCapital = 0;
-
-     products.forEach((product,index) => {
+     let totalStock = 0;
+   
+    products.forEach((product,index) => {
        
+       totalProfit += ((product.salePrice - product.buyPrice) * product.stock);
+       totalCapital += product.buyPrice * product.stock
+       totalStock += Number(product.stock);
        productsHTML += `
        <div class="rows  product-info">
-       <div>${product.name}</div>
-        <div>${product.stock} </div>
-        <div>${product.buyPrice}</div>
-        <div>${product.salePrice}</div>
-        <div>${calculateProfit(product.buyPrice,product.salePrice,product.stock)} </div>
-        <div>${calculateCapital(product.buyPrice,product.stock)} </div>
-        <div>
-        <button id="edit-buttons">edit</button>
-        <button id="delete-buttons" class="delete" data-index="${index}">delete</button>
-        </div>
+          <div>${product.name.slice(0,1).toUpperCase()} </div>
+          <div>${product.name} </div>
+          <div>${product.stock} </div>
+          <div>${Number(product.buyPrice).toLocaleString('en-US')}</div>
+          <div>${Number(product.salePrice).toLocaleString('en-US')}</div>
+          <div>${calculateProfit(product.buyPrice,product.salePrice,product.stock).toLocaleString('en-US')} </div>
+          <div>${calculateCapital(product.buyPrice,product.stock).toLocaleString('en-US')} </div>
+          <div>
+          <button id="edit-buttons">edit</button>
+          <button id="delete-buttons" class="delete" data-index="${index}">delete</button>
+          </div>
         </div>
         `
-         totalProfit += (product.salePrice - product.buyPrice) * product.stock;
-         totalCapital += product.buyPrice * product.stock
       })
       
       productsContainer.innerHTML = productsHTML
       calculateTotalProducts()
       deleteProducts()
-      totalProfitDisplayer.innerHTML = totalProfit
-      totalCapitalDisplayer.innerHTML = totalCapital
+      totalProfitDisplayer.innerHTML = totalProfit.toLocaleString('en-US')
+      totalCapitalDisplayer.innerHTML = totalCapital.toLocaleString('en-US')
+      totalStockDisplayer.innerHTML = totalStock.toLocaleString('en-US')
+      
    }
   renderProducts()
 
@@ -86,8 +91,11 @@
       let stock = productStock.value;
       let buyPrice = buyPricePerProduct.value;
       let salePrice = salePricePerProduct.value;
-
-      if(name === '' || stock === '' || buyPrice === '' || salePrice === ''){
+      
+      buyPrice = buyPrice.toLocaleString('en-US');
+      salePrice = salePrice.toLocaleString('en-US')
+      
+      if(name.trim() === '' || stock.trim() === '' || buyPrice.trim() === '' || salePrice.trim() === ''){
         return;
       }else{
         products.push({
@@ -98,26 +106,26 @@
       })
       }
 
+      // localStorage.setItem("products", JSON.stringify(products))
       renderProducts()
 
       productName.value = ""
       productStock.value = ""
       buyPricePerProduct.value = ""
       salePricePerProduct.value = ""
- 
     }
   
 
-  addButton.addEventListener('click', () => {
-    addProduct()
-    renderProducts()
-  })
+    addButton.addEventListener('click', () => {
+      addProduct()
+      renderProducts()
+    })
 
 
-  function calculateTotaProfit(salePrice, buyPrice, stock){
-    
-     return (salePrice - buyPrice) * stock;
-  }
-  calculateProfit()
+    function calculateTotaProfit(salePrice, buyPrice, stock){
+      
+      return (salePrice - buyPrice) * stock;
+    }
+    calculateProfit()
 
   
