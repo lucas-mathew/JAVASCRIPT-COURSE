@@ -1,4 +1,4 @@
-    "use strict"
+    // "use strict"
     
     const products = [
       {id:"01",name:"Nails",stock:1, buyPrice:1000, salePrice:2000},
@@ -15,10 +15,11 @@
     const buyPricePerProduct = document.querySelector('#buy-price');
     const salePricePerProduct = document.querySelector('#sale-price');
     const addButton = document.querySelector(".addButton")
-    const totalProfitDisplayer = document.querySelector('#total-profit-displayer')
-    const totalCapitalDisplayer =document.querySelector("#total-capital-displayer")
-    const totalStockDisplayer = document.querySelector('#total-stock-displayer')
-  
+    const totalProfitDisplayer = document.querySelector('#total-profit-displayer');
+    const totalCapitalDisplayer = document.querySelector("#total-capital-displayer");
+    const totalStockDisplayer = document.querySelector('#total-stock-displayer');
+    const searchInput = document.querySelector('#search');
+
     //display products on the page;
   function renderProducts(){
      let productsHTML = '';
@@ -41,7 +42,7 @@
           <div>${calculateProfit(product.buyPrice,product.salePrice,product.stock).toLocaleString('en-US')} </div>
           <div>${calculateCapital(product.buyPrice,product.stock).toLocaleString('en-US')} </div>
           <div>
-          <button id="edit-buttons">edit</button>
+          <button id="edit-buttons" class="edit-buttons">edit</button>
           <button id="delete-buttons" class="delete" data-index="${index}">delete</button>
           </div>
         </div>
@@ -94,7 +95,6 @@
       
       buyPrice = buyPrice.toLocaleString('en-US');
       salePrice = salePrice.toLocaleString('en-US')
-      
       if(name.trim() === '' || stock.trim() === '' || buyPrice.trim() === '' || salePrice.trim() === ''){
         return;
       }else{
@@ -117,8 +117,13 @@
   
 
     addButton.addEventListener('click', () => {
-      addProduct()
-      renderProducts()
+       addButton.innerHTML = "Saving..."
+        setTimeout( () => {
+          addButton.innerHTML = "Create product"
+          addProduct()
+          renderProducts()
+        },1400)
+    
     })
 
 
@@ -126,6 +131,24 @@
       
       return (salePrice - buyPrice) * stock;
     }
-    calculateProfit()
+    calculateProfit();
+
+
+
+    //Delete all products
+    function deleteAll(){
+
+     return products.splice(indexedDB)
+    }
+
+
+    document.querySelector('#delete-all')
+     .addEventListener("click", () => {
+      deleteAll()
+      
+      renderProducts()
+     })
+
 
   
+ 

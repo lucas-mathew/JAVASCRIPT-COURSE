@@ -62,18 +62,7 @@
 
       
 
-      const products = [
-        "laptop","phones"
-      ]
 
-      let search = document.querySelector('#search')
-      
-      search.addEventListener('input', ()=> {
-        let searchQuery = search.value
-
-      const results = products.filter( product => {
-        product.toLowerCase().includes(searchQuery.toLowerCase())
-      })
-      console.log(results)
-      })
+const myArr =[1,2,34,5,6,7,8]
+console.log(myArr[myArr.length - 1])
 
