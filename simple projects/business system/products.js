@@ -20,6 +20,12 @@
     const totalStockDisplayer = document.querySelector('#total-stock-displayer');
     const searchInput = document.querySelector('#search');
 
+    //Products Form validation Variables
+    const alertStockLabel = document.querySelector('.stock-label')
+    const alertNameLabel = document.querySelector(".name-label")
+    const alertBuypriceLabel = document.querySelector('.buyPrice-label')
+    const alertSalepriceLabel = document.querySelector(".salePrice-label")
+
     //display products on the page;
   function renderProducts(){
      let productsHTML = '';
@@ -95,9 +101,13 @@
       
       buyPrice = buyPrice.toLocaleString('en-US');
       salePrice = salePrice.toLocaleString('en-US')
+      
       if(name.trim() === '' || stock.trim() === '' || buyPrice.trim() === '' || salePrice.trim() === ''){
-        return;
+          invalidProductForm()
+          return;
+        
       }else{
+        validProductForm()
         products.push({
         name,
         stock,
@@ -141,7 +151,6 @@
      return products.splice(indexedDB)
     }
 
-
     document.querySelector('#delete-all')
      .addEventListener("click", () => {
       deleteAll()
@@ -149,6 +158,45 @@
       renderProducts()
      })
 
+
+
+     // Product Form Validation
+
+     function invalidProductForm(){
+          
+       if(productName.value === ""){
+          alertNameLabel.classList.add("required")
+          alertNameLabel.innerHTML = "Product Name required!"
+       }
+    
+       if(productStock.value === ""){
+           alertStockLabel.classList.add("required")
+           alertStockLabel.innerHTML = "Product Stock required!"
+         }
+    
+
+        if(buyPricePerProduct.value === ""){
+           alertBuypriceLabel.classList.add("required")
+           alertBuypriceLabel.innerHTML = "Buy price required!"
+        }
+
+        if(salePricePerProduct.value === ""){
+           alertSalepriceLabel.classList.add("required")
+           alertSalepriceLabel.innerHTML = "Sale price required!"
+        }
+     }
+
+      function validProductForm(){
+          if(productStock !== ""){
+            alertStockLabel.classList.remove("required")
+          }
+          
+          alertNameLabel.classList.remove("required")
+          
+          alertBuypriceLabel.classList.remove("required")
+          
+          alertSalepriceLabel.classList.remove("required")   
+     }
 
   
  
